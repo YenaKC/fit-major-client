@@ -1,0 +1,191 @@
+:root {
+
+  /* colors */
+
+  --bg: #111111;
+  --surface: #1c1c1c;
+  --surface-dark: #171719;
+  --border: #2c2c2c;
+
+  --primary: #ff6b00;
+  --primary-hover: #ff8126;
+  --gold: #d6b36a;
+  --champagne: #ead9b8;
+  --danger: #ff4d4d;
+
+  --text: #ffffff;
+  --text-muted: #888888;
+  --text-dark: #111111;
+
+  --accent: #ff2f5f;
+  --accent-hover: #ff4773;
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --shadow-glam: 0 18px 45px rgba(0, 0, 0, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.btn {
+  width: 100%;
+  min-height: 54px;
+  background: var(--primary);
+  color: var(--text);
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+}
+
+.btn-light {
+  background: var(--text);
+  color: var(--text-dark);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--text-dark);
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(214, 179, 106, 0.1);
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 12px;
+}
+
+.input {
+  width: 100%;
+  height: 50px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0 14px;
+  border-radius: var(--radius-sm);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+/* NAVBAR */
+.navbar {
+  height: 56px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.navbar-link a:hover {
+  color: var(--gold);
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+    padding: 32px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1180px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
