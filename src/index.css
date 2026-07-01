@@ -164,7 +164,7 @@ button {
   color: var(--text-muted);
 }
 
-.navbar-link a:hover {
+.navbar-links a:hover {
   color: var(--gold);
 }
 
@@ -182,6 +182,72 @@ button {
   margin-bottom: 12px;
 }
 
+/* PRODUCT DETAILS */
+.pdp-image {
+  width: 100%;
+  max-width: 390px;
+  height: 520px;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
+  background: var(--surface);
+}
+
+.pdp-info {
+  max-width: 390px;
+  margin: 0 auto;
+  padding: 24px 16px 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pdp-info h1 {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.pdp-info h2 {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+/* LOGIN */
+.auth-container {
+  padding-top: 64px;
+}
+
+.auth-subtitle {
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-form label {
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.auth-link {
+  display: block;
+  margin-top: 20px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+
+
 /* TABLET */
 
 @media (min-width: 768px) {
@@ -193,6 +259,16 @@ button {
   .product-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 28px 16px;
+  }
+
+  /* PRODUCT DETAILS */
+  .pdp-image,
+  .pdp-info {
+    max-width: 720px;
+  }
+
+  .pdp-image {
+    height: 620px;
   }
 }
 
