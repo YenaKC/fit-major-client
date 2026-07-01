@@ -1,9 +1,23 @@
+import { Link } from "react-router-dom";
+
 function SuccessPage() {
     return (
         <main className="page">
-            <div className="container">
-                <h1>FIT MAJOR</h1>
-                <p>Success Page</p>
+            <div className="container auth-container">
+
+                <h1>ORDER SUCCESS</h1>
+
+                <p className="auth-subtitle">
+                    Thank you for shopping with FIT MAJOR.
+                </p>
+
+                <Link
+                    to={"/products"}
+                    className="btn"
+                >
+                    BACK TO SHOP
+                </Link>
+                
             </div>
         </main>
     );

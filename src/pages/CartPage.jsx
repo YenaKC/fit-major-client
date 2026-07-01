@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 
@@ -7,6 +8,9 @@ function CartPage() {
 
     const token = localStorage.getItem("authToken");
 
+    const navigate = useNavigate();
+
+    // Get my cart from back-end server.
     const getCart = () => {
         api
             .get("/cart", {
@@ -24,6 +28,7 @@ function CartPage() {
         getCart();
     }, []);
 
+    // Modificate quantity
     const updateQuantity = (productId, quantity) => {
         if (quantity < 1) return;
 
@@ -43,6 +48,7 @@ function CartPage() {
             .catch(console.log);
     };
 
+    // Remove the product in the cart(bag)
     const deleteItem = (productId) => {
         api
             .delete(`/cart/item/${productId}`, {
@@ -56,9 +62,28 @@ function CartPage() {
             .catch(console.log);
     };
 
+    // Total Price
     const totalPrice = cart?.items?.reduce((total, item) => {
         return total + item.product.price * item.quantity;
     }, 0) || 0;
+
+    // Change my cart to make an order
+    const checkout = () => {
+        api
+            .post(
+                "/stripe/create-checkout-session",
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
+            .then((res) => {
+                window.location.href = res.data.url;
+            })
+            .catch(console.log);
+    };
 
     if (!cart || cart.items.length === 0) {
         return (
@@ -121,7 +146,12 @@ function CartPage() {
                 <section className="summary-card">
                     <p>Subtotal</p>
                     <h2>{totalPrice.toFixed(2)}€</h2>
-                    <button className="btn btn-light">CHECKOUT</button>
+                    <button
+                        className="btn btn-light"
+                        onClick={checkout}
+                    >
+                        CHECKOUT
+                    </button>
                 </section>
 
             </div>
