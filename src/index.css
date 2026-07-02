@@ -124,10 +124,12 @@ button {
   font-weight: 700;
 }
 
+/* PRODUCT PAGE */
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px 12px;
+  gap: 16px;
 }
 
 .input {
@@ -222,6 +224,11 @@ button {
 /* PRODUCT CARDS */
 .product-card {
   display: block;
+}
+
+.product-card img {
+  aspect-ratio: 3/4;
+  object-fit: cover;
 }
 
 .product-image {
@@ -448,9 +455,16 @@ button {
 .filter-row {
   display: flex;
   gap: 8px;
+
   overflow-x: auto;
+
+  scrollbar-width: none;
   padding-bottom: 16px;
   margin-bottom: 8px;
+}
+
+.filter-row::-webkit-scrollbar {
+  display: none;
 }
 
 .filter-pill {
