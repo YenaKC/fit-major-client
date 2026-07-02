@@ -19,7 +19,7 @@
 
   --accent: #ff2f5f;
   --accent-hover: #ff4773;
-  
+
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 22px;
@@ -172,6 +172,52 @@ button {
 .navbar-links a:hover {
   color: var(--gold);
 }
+
+.navbar-button {
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.navbar-button:hover {
+  color: var(--gold);
+}
+
+/* MENU */
+.menu-btn {
+  background: transparent;
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.navbar-links {
+  display: none;
+}
+
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.mobile-menu-button,
+.navbar-button {
+  background: transparent;
+  color: var(--text);
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+}
+
 
 /* PRODUCT CARDS */
 .product-card {
@@ -407,6 +453,25 @@ button {
     padding: 32px;
   }
 
+  /* NAVBAR-MENU */
+  .menu-btn {
+    display: none;
+  }
+
+  .navbar-links {
+    display: flex;
+    gap: 14px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .mobile-menu {
+    display: none;
+  }
+
+  /* PRODUCT CARD */
+
   .product-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 28px 16px;
@@ -423,6 +488,8 @@ button {
   }
 }
 
+/* DESKTOP */
+
 @media (min-width: 1024px) {
   .container {
     max-width: 1180px;
@@ -432,3 +499,11 @@ button {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* añade más 
+- Contexto (la semana pasada : login-logtou
+- docker .-- header -- un poquito más ssimp :::- CartPage : header  -- docker no docker no :::: revisa services and contexts
+- window location, muy complicado.
+- deberia React .. .más simplicar
+- simplificar codigo.--
+*/
