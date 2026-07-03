@@ -16,6 +16,8 @@ function CancelPage() {
                     RETURN TO BAG
                 </Link>
             </div>
+            <FOOTER />
+
         </main>
     );
 }

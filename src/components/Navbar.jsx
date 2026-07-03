@@ -26,6 +26,7 @@ function Navbar() {
         <>
             <nav className="navbar">
                 <Link to="/" className="navbar-logo" onClick={closeMenu}>
+                    {/* <img src="products/images/fit-major-logo.png" alt="FIT MAJOR LOGO" /> */}
                     FIT MAJOR
                 </Link>
 

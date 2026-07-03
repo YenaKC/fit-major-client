@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../services/api";
 
+import Footer from "../components/Footer";
+
 function LoginPage() {
     // Email + Password => Loggin Backend => Save JWT Token
     // useState: Save the data from email/password
@@ -57,6 +59,8 @@ function LoginPage() {
                     Create account
                 </Link>
             </div>
+
+            <Footer />
         </main>
     );
 }

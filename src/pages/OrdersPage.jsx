@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 
+import Footer from "../components/Footer";
+
 function OrdersPage() {
     const [orders, setOrders] = useState([]);
 
@@ -60,6 +62,8 @@ function OrdersPage() {
                     ))}
                 </div>
             </div>
+
+            <Footer />
         </main>
     );
 }

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
 
+import Footer from "../components/Footer";
+
 function ProductDetailsPage() {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
@@ -63,6 +65,8 @@ function ProductDetailsPage() {
 
                 <button className="btn" onClick={handleAddToCart}>ADD TO BAG</button>
             </section>
+
+            <Footer />
         </main>
     );
 }

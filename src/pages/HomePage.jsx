@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer.jsx";
 
 function HomePage() {
     return (
@@ -25,7 +26,7 @@ function HomePage() {
                     <Link to="/products">View all</Link>
                 </div>
 
-                <div className="home-promo-grid">
+                {/* <div className="home-promo-grid">
                     <Link to="/products" className="promo-card">
                         <span>OVERSIZED TEES</span>
                     </Link>
@@ -33,7 +34,26 @@ function HomePage() {
                     <Link to="/products" className="promo-card promo-card-gold">
                         <span>PERFORMANCE FIT</span>
                     </Link>
+                </div> */}
+                <div className="home-promo-grid">
+
+                    <Link to="/products" className="promo-card promo-tee">
+                        {/* <span>OVERSIZED TEES</span> */}
+                    </Link>
+
+                    <Link to="/products" className="promo-card promo-performance">
+                        {/* <span>PERFORMANCE FIT</span> */}
+                    </Link>
+
+                    <Link to="/products" className="promo-card promo-hoodie">
+                        {/* <span>TRAINING HOODIES</span> */}
+                    </Link>
+
+                    <Link to="/products" className="promo-card promo-essentials">
+                        {/* <span>ESSENTIALS</span> */}
+                    </Link>
                 </div>
+
             </section>
 
             {/* ABOUT US */}
@@ -59,11 +79,7 @@ function HomePage() {
             </section>
 
             {/* FOOTER */}
-            <footer className="footer">
-                <h2>FIT MAJOR</h2>
-                <p>Premium fitness wear.</p>
-                <p>© 2026 FIT MAJOR</p>
-            </footer>
+            <Footer />
         </main>
     );
 }

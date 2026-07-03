@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../services/api";
 
+import Footer from "../components/Footer";
+
 function SignupPage() {
     // Save user's data
     const [username, setUsername] = useState("");
@@ -67,6 +69,8 @@ function SignupPage() {
                     Already have an account?
                 </Link>
             </div>
+
+            <Footer />
         </main>
     );
 }

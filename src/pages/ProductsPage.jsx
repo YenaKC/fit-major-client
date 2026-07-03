@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import api from "../services/api";
 import ProductCard from "../components/ProductCard";
 
+import Footer from "../components/Footer";
+
 function ProductsPage() {
     // Starts with empty array to save the state of the component.
     const [products, setProducts] = useState([]);
@@ -77,6 +79,7 @@ function ProductsPage() {
                 <p className="empty-text">No Products found.</p>
                )}
             </div>
+            <Footer />
         </main>
     );
 }

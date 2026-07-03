@@ -158,10 +158,19 @@ button {
 }
 
 .navbar-logo {
+  /* display: flex;
+  align-items: center; */
   font-size: 24px;
   font-weight: 900;
   letter-spacing: 4px;
+  color: var(--text);
 }
+
+/* .navbar-logo img {
+  height: 34px;
+  width: auto;
+  object-fit: contain;
+} */
 
 .navbar-links {
   display: flex;
@@ -185,6 +194,33 @@ button {
 .navbar-button:hover {
   color: var(--gold);
 }
+
+/* HOME-FEATURED PRODCUTS */
+.promo-tee {
+  background-image: 
+  linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)), 
+  url("/products/images/promo-tee.png");
+}
+
+.promo-performance {
+  background-image: 
+  linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)), 
+  url("/products/images/promo-performance.png");
+}
+
+.promo-hoodie {
+  background-image: 
+  linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)), 
+  url("/products/images/promo-hoodie.png");
+}
+
+.promo-essentials {
+  background-image: 
+  linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)), 
+  url("/products/images/promo-essentials.png");
+}
+
+
 
 /* MENU */
 .menu-btn {
@@ -309,14 +345,16 @@ button {
 
 /* HOME */
 .home-hero {
-  min-height: 560px;
+  min-height: 620px;
   background: 
-    linear-gradient(135deg, rgba(255,107, 0, 0.95), rgba(214, 179, 106, 0.25)),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.25), transparent 30%),
-    var(--surface);
+    linear-gradient(rgba(0,0, 0, 0.45), rgba(0, 0, 0, 0.65)),
+    url('/public/products/images/hero-fitmajor.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
-  padding: 32px 16px;
+  /* padding: 32px 16px; */
 }
 
 .hero-content {
@@ -386,27 +424,36 @@ button {
 }
 
 .promo-card {
-  min-height: 180px;
-  background: 
+  /* min-height: 180px; */
+  height: 220px;
+  border-radius: var(--radius-md);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  border: 1px solid var(--border);
+  transition: .3s;
+  /* background: 
     linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.65)), 
     var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  display: flex;
-  align-items: end;
-  box-shadow: var(--shadow-glam);
+  box-shadow: var(--shadow-glam); */
+}
+
+.promo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 255px rgba(255, 255, 255, .08);
+}
+
+.promo-card span {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 .promo-card-gold {
   background:
     linear-gradient(135deg, rgba(214, 179, 106, 0.85), rgba(255, 107, 0, 0.7)), var(--surface);
-}
-
-.promo-card span {
-  font-size: 20px;
-  font-weight: 900;
-  letter-spacing: 1px;
 }
 
 .benefits-grid {
@@ -433,17 +480,48 @@ button {
   font-size: 14px;
 }
 
+/* FOOTER */
 .footer {
-  padding: 40px 16px;
+  padding: 56px 16px 32px;
   border-top: 1px solid var(--border);
-  text-align: center;
+  /* text-align: center; */
+  background: #050505;
   color: var(--text-muted);
+}
+
+.footer-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  gap: 40px;
 }
 
 .footer h2 {
   color: var(--text);
   letter-spacing: 4px;
   margin-bottom: 8px;
+}
+
+.footer-links {
+  display: grid;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.footer-links h4 {
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+}
+
+.footer-bottom {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
 }
 
 /* PRODUCTS PAGE */
@@ -679,6 +757,16 @@ button {
     height: 620px;
   }
 
+  /* FOOTER */
+  .footer-links {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer-inner {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    align-items: start;
+  }
+
   /* HOME */
   .home-hero {
     min-height: 620px;
@@ -692,25 +780,34 @@ button {
     font-size: 76px;
   }
 
-  .home-promo-grid,
+  .home-promo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .benefits-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 
   .promo-card {
-    min-height: 220px;
+    height: 260px;
   }
 }
 
 /* DESKTOP */
 
 @media (min-width: 1024px) {
+  /* HOME */
   .container {
     max-width: 1180px;
   }
 
   .product-grid {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .promo-card {
+    min-height: 300px;
   }
 }
 

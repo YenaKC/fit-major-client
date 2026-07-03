@@ -155,7 +155,9 @@ function CartPage() {
                 </section>
 
             </div>
+            <FOOTER />
         </main>
+
     );
 }
 
