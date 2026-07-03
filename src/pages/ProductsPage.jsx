@@ -17,6 +17,7 @@ function ProductsPage() {
         api
             .get("/products")
             .then((res) => {
+                console.log(res.data);
                 setProducts(res.data);
             })
             .catch(console.log) // For the case of error => print
