@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
+import Footer from "../components/Footer.jsx";
 
 function CartPage() {
     const [cart, setCart] = useState(null);
@@ -155,7 +156,7 @@ function CartPage() {
                 </section>
 
             </div>
-            <FOOTER />
+            <Footer />
         </main>
 
     );
