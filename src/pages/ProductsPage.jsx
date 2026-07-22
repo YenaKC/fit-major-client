@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import ProductCard from "../components/ProductCard";
+import { useSearchParams } from "react-router-dom";
 
 import Footer from "../components/Footer";
 
@@ -11,16 +12,35 @@ function ProductsPage() {
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("All");
 
+    const [searchParams] = useSearchParams();
+
+    const urlSearch = searchParams.get("search") || "";
+    const urlCategory = searchParams.get("category") || "";
+    const urlCollection = searchParams.get("collection") || "";
+
+    // useEffect for server product
+    useEffect(() => {
+        setSearch(urlSearch);
+        setCategory(urlCategory || "All");
+    }, [urlSearch, urlCategory]);
+
     // Execute for the first rendering
     // Getting data 
     useEffect(() => {
         api
             .get("/products")
             .then((res) => {
-                console.log(res.data);
-                setProducts(res.data);
+                console.log("PRODUCTS FROM SERVER:", res.data);
+                setProducts(res.dataF);
             })
-            .catch(console.log) // For the case of error => print
+            .catch((error) => {
+                console.log("PRODUCT FETCH ERROR:", error);
+                console.log(
+                    "REQUEST URL:",
+                    error.config?.baseURL + error.config?.url
+                );
+                console.log("STATUS:", error.response?.status);
+            }); // For the case of error => print
     }, []);
 
     // products: products list from back-end server.

@@ -1,3 +1,7 @@
+/* ============================================== */
+/* =============== MOBILE FIRST ================ */
+/* ============================================== */
+
 :root {
 
   /* colors */
@@ -147,115 +151,262 @@ button {
 }
 
 /* NAVBAR */
-.navbar {
-  height: 56px;
+.site-header {
+  position: relative;
+  z-index: 1000;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+  min-height: 64px;
   padding: 0 16px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
+
+  background: var(--bg);
 }
 
 .navbar-logo {
-  /* display: flex;
-  align-items: center; */
-  font-size: 24px;
+  flex: 0 0 auto;
+
+  color: var(--text);
+  font-size: 22px;
   font-weight: 900;
   letter-spacing: 4px;
-  color: var(--text);
+  white-space: nowrap;
 }
 
-/* .navbar-logo img {
-  height: 34px;
-  width: auto;
-  object-fit: contain;
-} */
-
-.navbar-links {
-  display: flex;
-  gap: 14px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-muted);
-}
-
-.navbar-links a:hover {
-  color: var(--gold);
-}
-
-.navbar-button {
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.navbar-button:hover {
-  color: var(--gold);
-}
-
-/* HOME-FEATURED PRODCUTS */
-.promo-tee {
-  background-image: 
-  linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)), 
-  url("/products/images/promo-tee.png");
-}
-
-.promo-performance {
-  background-image: 
-  linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)), 
-  url("/products/images/promo-performance.png");
-}
-
-.promo-hoodie {
-  background-image: 
-  linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)), 
-  url("/products/images/promo-hoodie.png");
-}
-
-.promo-essentials {
-  background-image: 
-  linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)), 
-  url("/products/images/promo-essentials.png");
-}
-
-
-
-/* MENU */
-.menu-btn {
-  background: transparent;
-  color: var(--text);
-  font-size: 24px;
-  line-height: 1;
-}
-
-.navbar-links {
+/* Mobile first: hide desktop navigation */
+.navbar-main-menu,
+.navbar-search,
+.navbar-actions {
   display: none;
 }
 
-.mobile-menu {
+.menu-btn {
+  flex: 0 0 auto;
+  display: block;
+  background: transparent;
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1;
+}
+
+/* --------------------------------------------- */
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 16px);
+  left: 0;
+  min-width: 220px;
+
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding: 24px 16px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;
-  font-weight: 800;
+  gap: 12px;
+
+  padding: 20px;
+  background: var(--surface-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+
+  z-index: 1100;
+  box-shadow: var(--shadow-glam);
+}
+
+.nav-dropdown-menu a {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nav-dropdown-menu a:hover {
+  color: var(--text);
+
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.6),
+    0 0 12px rgba(255, 255, 255, 0.25);
+
+  transform: translateX(3px);
+}
+
+.dropdown-title {
+  margin-bottom: 4px;
+
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 900;
   letter-spacing: 1px;
 }
 
-.mobile-menu-button,
-.navbar-button {
+.clothing-dropdown {
+  min-width: 520px;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.dropdown-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* MOBILE / TABLET MENU  */
+.mobile-menu {
+  padding: 20px 16px 28px;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mobile-search {
+  width: 100%;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.mobile-search input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+
+  padding: 0 14px;
+  background: var(--surface);
+  color: var(--text);
+
+  border: 1px solid var(--border);
+  border-right: none;
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.mobile-search input::placeholder {
+  color: var(--text-muted);
+}
+
+.mobile-search button {
+  height: 44px;
+  padding: 0 16px;
+
+  background: var(--text);
+  color: var(--text-dark);
+
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+.mobile-menu-group {
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-dropdown-trigger {
+  width: 100%;
+  min-height: 52px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   background: transparent;
   color: var(--text);
-  font-size: inherit;
-  font-weight: inherit;
-  letter-spacing: inherit;
+
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
   text-align: left;
 }
 
+.mobile-submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 4px 0 20px 16px;
+}
+
+.mobile-submenu a {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mobile-submenu-title {
+  margin-top: 10px;
+
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.mobile-menu>a,
+.mobile-menu>.mobile-menu-button {
+  width: 100%;
+  min-height: 52px;
+
+  display: flex;
+  align-items: center;
+
+  background: transparent;
+  color: var(--text);
+
+  border-bottom: 1px solid var(--border);
+
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-align: left;
+}
+
+.mobile-sale-link {
+  color: var(--primary) !important;
+}
+
+
+
+
+/* HOME-FEATURED PRODCUTS */
+.promo-tee {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)),
+    url("/products/images/promo-tee.png");
+}
+
+.promo-performance {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)),
+    url("/products/images/promo-performance.png");
+}
+
+.promo-hoodie {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)),
+    url("/products/images/promo-hoodie.png");
+}
+
+.promo-essentials {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .65)),
+    url("/products/images/promo-essentials.png");
+}
 
 /* PRODUCT CARDS */
 .product-card {
@@ -346,8 +497,8 @@ button {
 /* HOME */
 .home-hero {
   min-height: 620px;
-  background: 
-    linear-gradient(rgba(0,0, 0, 0.45), rgba(0, 0, 0, 0.65)),
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)),
     url('/public/products/images/hero-fitmajor.png');
   background-size: cover;
   background-position: center;
@@ -714,8 +865,9 @@ button {
   font-size: 18px;
 }
 
-
-/* TABLET */
+/* =============================================== */
+/* =================== TABLET =================== */
+/* =============================================== */
 
 @media (min-width: 768px) {
   .container {
@@ -723,21 +875,13 @@ button {
     padding: 32px;
   }
 
-  /* NAVBAR-MENU */
-  .menu-btn {
-    display: none;
-  }
-
-  .navbar-links {
-    display: flex;
-    gap: 14px;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
+  /* NAVBAR */
+  .navbar {
+    padding: 0 32px;
   }
 
   .mobile-menu {
-    display: none;
+    padding: 28px 32px;
   }
 
   /* PRODUCT CARD */
@@ -794,9 +938,13 @@ button {
   }
 }
 
-/* DESKTOP */
+
+/* =============================================== */
+/* =================== DESKTOP =================== */
+/* =============================================== */
 
 @media (min-width: 1024px) {
+
   /* HOME */
   .container {
     max-width: 1180px;
@@ -809,12 +957,171 @@ button {
   .promo-card {
     min-height: 300px;
   }
-}
 
-/* añade más 
-- Contexto (la semana pasada : login-logtou
-- docker .-- header -- un poquito más ssimp :::- CartPage : header  -- docker no docker no :::: revisa services and contexts
-- window location, muy complicado.
-- deberia React .. .más simplicar
-- simplificar codigo.--
-*/
+  /* NARBAR */
+  .navbar {
+    min-height: 76px;
+    padding: 0 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 36px;
+  }
+
+  .menu-btn,
+  .mobile-menu {
+    display: none;
+  }
+
+  .navbar-main-menu,
+  .navbar-search,
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-main-menu {
+    gap: 28px;
+  }
+
+  /* NAVBAR MENU STYLING */
+  .navbar-main-menu>a,
+  .nav-dropdown-trigger,
+  .navbar-actions a,
+  .navbar-button {
+    position: relative;
+
+    padding: 8px 10px;
+    border-radius: 6px;
+
+    background: transparent;
+    color: var(--text);
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+
+    text-shadow: none;
+
+    transition:
+      color 0.2s ease,
+      background 0.2s ease,
+      box-shadow 0.2s ease,
+      text-shadow 0.2s ease;
+  }
+
+  /* DESKTOP NAVBAR HOVER */
+  .navbar-main-menu>a:hover,
+  .nav-dropdown-trigger:hover,
+  .navbar-actions a:hover,
+  .navbar-button:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.1);
+
+    box-shadow:
+      0 0 10px rgba(255, 255, 255, 0.12),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+
+    text-shadow:
+      0 0 6px rgba(255, 255, 255, 0.55);
+  }
+
+  /* -------------------------------------------------- */
+
+  .nav-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .dropdown-arrow {
+    font-size: 8px;
+  }
+
+  .nav-sale-link {
+    color: var(--primary) !important;
+  }
+
+  .nav-sale-link:hover {
+    color: var(--primary-hover) !important;
+    background: rgba(255, 107, 0, 0.12);
+
+    box-shadow:
+      0 0 12px rgba(255, 107, 0, 0.2),
+      inset 0 0 0 1px rgba(255, 107, 0, 0.15);
+
+    text-shadow:
+      0 0 6px rgba(255, 107, 0, 0.8),
+      0 0 14px rgba(255, 107, 0, 0.4);
+  }
+
+  /* .navbar-button {
+    padding: 0;
+  } */
+
+  .navbar-logo {
+    flex: 0 0 auto;
+  }
+
+  .navbar-main-menu {
+    gap: 30px;
+  }
+
+  .navbar-search {
+    flex: 1;
+    max-width: 420px;
+  }
+
+  .navbar-actions {
+    gap: 20px;
+    white-space: nowrap;
+  }
+
+  /* DESKTOP SEARCH */
+  .navbar-search {
+    flex: 1;
+    max-width: 420px;
+    min-width: 240px;
+    height: 42px;
+
+    display: flex;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .navbar-search input {
+    flex: 1;
+    min-width: 0;
+    padding: 0 18px;
+
+    background: transparent;
+    color: var(--text);
+    border: none;
+    outline: none;
+  }
+
+  .navbar-search input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .navbar-search button {
+    min-width: 100px;
+    height: 100%;
+    padding: 0 30px;
+
+    background: var(--text);
+    color: var(--text-dark);
+
+    border-radius: 0 999px 999px 0;
+
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+  }
+
+}
