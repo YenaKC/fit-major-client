@@ -11,6 +11,7 @@ function ProductsPage() {
 
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("All");
+    const [collection, setCollection] = useState("");
 
     const [searchParams] = useSearchParams();
 
@@ -22,7 +23,8 @@ function ProductsPage() {
     useEffect(() => {
         setSearch(urlSearch);
         setCategory(urlCategory || "All");
-    }, [urlSearch, urlCategory]);
+        setCollection(urlCollection);
+    }, [urlSearch, urlCategory, urlCollection]);
 
     // Execute for the first rendering
     // Getting data 
@@ -31,7 +33,7 @@ function ProductsPage() {
             .get("/products")
             .then((res) => {
                 console.log("PRODUCTS FROM SERVER:", res.data);
-                setProducts(res.dataF);
+                setProducts(res.data);
             })
             .catch((error) => {
                 console.log("PRODUCT FETCH ERROR:", error);
@@ -56,16 +58,44 @@ function ProductsPage() {
             .includes(search.toLowerCase());
 
         // Check if it is view mode for all or the selected category is same with the product category..
-            const matchesCategory =
-            category === "All" || product.category === category;
+        const matchesCategory =
+            category === "All" ||
+            product.category === category;
 
-        return matchesSearch && matchesCategory;
+        let matchesCollection = true;
+
+        if (collection === "new") {
+            matchesCollection = product.isNew === true;
+        }
+
+        if (collection === "sale") {
+            matchesCollection = product.onSale === true;
+        }
+
+        return (
+            matchesSearch &&
+            matchesCategory &&
+            matchesCollection
+        );
     });
+
+    // Complete the ProductsPage
+    const getPageTitle = () => {
+        if (collection === "new") {
+            return "NEW ARRIVALS";
+        }
+
+        if (collection === "sale") {
+            return "SALE"
+        }
+
+        return "SHOP"
+    };
 
     return (
         <main className="page">
             <div className="container">
-                <h1>SHOP</h1>
+                <h1>{getPageTitle()}</h1>
                 <p className="auth-subtitle">FIND YOUR FIT</p>
 
                 <input
@@ -95,10 +125,10 @@ function ProductsPage() {
                         <ProductCard key={product._id} product={product} />
                     ))}
                 </div>
-               
-               {filteredProducts.length === 0 && (
-                <p className="empty-text">No Products found.</p>
-               )}
+
+                {filteredProducts.length === 0 && (
+                    <p className="empty-text">No Products found.</p>
+                )}
             </div>
             <Footer />
         </main>
