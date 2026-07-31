@@ -4,12 +4,24 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 import Footer from "../components/Footer";
+import { addWishlist } from "../services/wishlist.service";
 
 function ProductDetailsPage() {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
 
     const navigate = useNavigate();
+
+    const handleAddToWishlist = async () => {
+        try {
+            const data = await addWishlist(product._id);
+            console.log(data);
+            alert("Product added to wishlist.");
+        } catch (error) {
+            console.log(error);
+            alert("Could not add product to wishlist.");
+        }
+    };
 
     const handleAddToCart = () => {
         const token = localStorage.getItem("authToken");
@@ -64,6 +76,7 @@ function ProductDetailsPage() {
                 <p>{product.description}</p>
 
                 <button className="btn" onClick={handleAddToCart}>ADD TO BAG</button>
+                <button onClick={handleAddToWishlist}>ADD TO WISHLIST</button>
             </section>
 
             <Footer />

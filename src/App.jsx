@@ -9,6 +9,7 @@ import CartPage from "./pages/CartPage";
 import OrdersPage from "./pages/OrdersPage";
 import SuccessPage from "./pages/SuccessPage";
 import CancelPage from "./pages/CancelPage";
+import WishlistPage from "./pages/WishlistPage";
 
 import Navbar from "./components/Navbar";
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/cancel" element={<CancelPage />} />
+        <Route path="/wishlist" element={<WishlistPage />} />
       </Routes>
     </>
   );
