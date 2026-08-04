@@ -427,6 +427,74 @@ button {
   margin-bottom: 12px;
 }
 
+.product-image-wrapper {
+  position: relative;
+}
+
+.wishlist-icon {
+  position: absolute;
+  right: 12px;
+  bottom: 24px;
+
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(17, 17, 17, 0.78);
+  color: var(--text);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+
+  transition: 
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.wishlist-icon:hover {
+  transform: scale(1.1);
+  background: rgba(17, 17, 17, 0.95);
+}
+
+.wishlist-icon:active {
+  transform: scale(0.92);
+}
+
+.wishlist-icon.active {
+  color: #ff2f5f;
+  border-color: rgba(255, 47, 95, 0.55);
+  animation: wishlist-pop 0.28s ease;
+}
+
+@keyframes wishlist-pop {
+  0% {
+    transform: scale(0.85);
+  }
+
+  55% {
+    transform: scale(1.18);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.wishlist-icon:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
 /* PRODUCT DETAILS */
 .pdp-image {
   width: 100%;

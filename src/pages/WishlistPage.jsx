@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getWishlist } from "../services/wishlist.service";
+import { getWishlist, removeWishlist } from "../services/wishlist.service";
 
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
@@ -10,6 +10,25 @@ function WishlistPage() {
 
     // The state to show 'Loading...' during waiting API.
     const [loading, setLoading] = useState(true);
+
+    // handleRemoveWishlist: 
+    // DELETE /users/wishlist/:productId 
+    // => Delete in MongoDB
+    // => Elimiete the same product from state
+    // => Remove the product card without refreshing
+    const handleRemoveWishlist = async (productId) => {
+        try {
+            await removeWishlist(productId);
+
+            setWishlist((currentWishlist) =>
+                currentWishlist.filter(
+                    (product) => product._id !== productId
+                )
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     // Excuted once when the page opens for the first time.
     useEffect(() => {
@@ -48,10 +67,19 @@ function WishlistPage() {
                         {wishlist
                             .filter((product) => product)
                             .map((product) => (
-                                <ProductCard
-                                    key={product._id}
-                                    product={product}
-                                />
+                                <div key={product._id} className="wishlist-item">
+                                    <ProductCard product={product} />
+
+                                    <button
+                                        type="button"
+                                        className="btn"
+                                        onClick={() =>
+                                            handleRemoveWishlist(product._id)
+                                        }
+                                    >
+                                        REMOVE
+                                    </button>
+                                </div>
                             ))}
                     </div>
                 )}
