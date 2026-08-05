@@ -42,7 +42,7 @@ function Navbar() {
             closeAllMenus();
             return;
         }
-    
+
         // encodeURICompoenent(): Inside URL, change the letter to safe form from that has something dangerous and special meaning.
         // %, &, /, ? help not to destroy URL structure
         // %20: space
@@ -248,9 +248,21 @@ function Navbar() {
 
                 {/* DESKTOP ACTIONS */}
                 <div className="navbar-actions">
-                    <Link to="/orders">ORDERS</Link>
+                    <Link to="/orders">
+                        ORDERS
+                    </Link>
 
-                    <Link to="/cart">BAG</Link>
+                    {/* // If there's a token -> Show wishlist link.
+                    // If there's no token -> Not show */}
+                    {token && (
+                        <Link to="/wishlist" onClick={closeAllMenus}>
+                            WISHLIST
+                        </Link>
+                    )}
+
+                    <Link to="/cart" onClick={closeAllMenus}>
+                        BAG
+                    </Link>
 
                     {token ? (
                         <button
@@ -261,7 +273,9 @@ function Navbar() {
                             LOGOUT
                         </button>
                     ) : (
-                        <Link to="/login">ACCOUNT</Link>
+                        <Link to="/login">
+                            ACCOUNT
+                        </Link>
                     )}
                 </div>
 
@@ -452,6 +466,12 @@ function Navbar() {
                     <Link to="/orders" onClick={closeAllMenus}>
                         ORDERS
                     </Link>
+
+                    {token && (
+                        <Link to="/wishlist" onClick={closeAllMenus}>
+                            WISHLIST
+                        </Link>
+                    )}
 
                     <Link to="/cart" onClick={closeAllMenus}>
                         BAG

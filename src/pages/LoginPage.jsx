@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../services/api";
 
@@ -10,7 +10,26 @@ function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    // Store the authentication-related message that should be shown to the user.
+    // The initial value is an empty string because there is no message by default.
+    const [authMessage, setAuthMessage] = useState("");
+
     const navigate = useNavigate();
+
+    // Runt once when the Login page is rendered.
+    // Read the temporary authentication message from sessionStorage.
+    // If a message exists: 
+    // 1. Save it in React state. 
+    // 2. Remove it from sessionStorage so it is displayed only once.
+    useEffect(() => {
+        const message = sessionStorage.getItem("authMessage");
+
+        if (message) {
+            setAuthMessage(message);
+            // Remove the message after reading it so it does not appear again when the user revisits or refreshes the Login page later.
+            sessionStorage.removeItem("authMessage");
+        }
+    }, []);
 
     // To not to execute refresh when the form is submitted
     const handleSubmit = (e) => {
@@ -33,6 +52,15 @@ function LoginPage() {
                 <h1>FIT MAJOR</h1>
                 <p className="auth-subtitle">LOGIN</p>
 
+                {/* Render the message only when authMessage contains a value. */}
+                {/* If authMessage is an empty string, React renders nothing. */}
+                {/* If authMessage contains a message, React displays it above the login form. */}
+                {authMessage && (
+                    <p className="auth-message">
+                        {authMessage}
+                    </p>
+                )}
+
                 <form onSubmit={handleSubmit} className="auth-form">
                     <label>Email</label>
                     <input 
@@ -50,7 +78,7 @@ function LoginPage() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
-                    <button className="btn"type="submit">
+                    <button className="btn" type="submit">
                         LOGIN
                     </button>
                 </form>
