@@ -1,7 +1,7 @@
 // useState stores whether the current product is in the wishlist.
 // useEffect runs the wishlist check when the product card is rendered. 
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { WishlistContext } from "../context/WishlistContext";
 
@@ -18,6 +18,8 @@ function ProductCard({ product, onWishlistRemove }) {
         removeFromWishlist,
     } = useContext(WishlistContext);
 
+    const navigate = useNavigate();
+
     /*
     Check whether the current product exists in the shared wishlist.
 
@@ -32,6 +34,7 @@ function ProductCard({ product, onWishlistRemove }) {
         const token = localStorage.getItem("authToken");
 
         if (!token) {
+            navigate("/login");
             return;
         }
 

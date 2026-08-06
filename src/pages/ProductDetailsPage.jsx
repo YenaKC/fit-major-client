@@ -1,18 +1,43 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 // useParams: To bring the productID from URL
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 import Footer from "../components/Footer";
-import { getWishlist, addWishlist, removeWishlist } from "../services/wishlist.service";
+
+// Import the shared wishlist context.
+// ProductDetailsPage will use the same wishlist state
+// as ProductCard, Navbar, and WishlistPage.
+import { WishlistContext } from "../context/WishlistContext";
 
 function ProductDetailsPage() {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
-    const [isWishlisted, setIsWishlisted] = useState(false);
+    /*
+    Read the shared wishlist functions from WishlistContext.
+
+    ProductDetailsPage no longer manages its own wishlist state or makes separate wishlist requests.
+    */
+    const {
+        isInWishlist,
+        addToWishlist,
+        removeFromWishlist,
+    } = useContext(WishlistContext);
 
     const navigate = useNavigate();
 
+    /*
+    Check whether the current product already exists inside the shared wishlist.
+    */
+    const isWishlisted = product
+        ? isInWishlist(product._id)
+        : false;
+
+
+    /*
+    Update the shared wishlist instead of changing a local wishlist state.
+    Every subscribed component updates automatically.
+    */
     const handleWishlistToggle = async () => {
         const token = localStorage.getItem("authToken");
 
@@ -23,11 +48,9 @@ function ProductDetailsPage() {
 
         try {
             if (isWishlisted) {
-                await removeWishlist(product._id);
-                setIsWishlisted(false);
+                await removeFromWishlist(product._id);
             } else {
-                await addWishlist(product._id);
-                setIsWishlisted(true);
+                await addToWishlist(product._id);
             }
         } catch (error) {
             console.log("WISHLIST TOGGLE ERROR:", error);
@@ -56,6 +79,10 @@ function ProductDetailsPage() {
             .catch(console.log);
     };
 
+    /*
+    Load only the selected product.
+    Wishlist status now comes from the shared WishlistContext instead of a separate API request.
+    */
     useEffect(() => {
         api
             .get(`/products/${productId}`)
@@ -66,41 +93,12 @@ function ProductDetailsPage() {
                 console.log("PRODUCT FETCH ERROR:", error);
             });
 
-        const token = localStorage.getItem("authToken");
-
-        if (!token) {
-            setIsWishlisted(false);
-            return
-        }
     }, [productId]);
 
-    useEffect(() => {
-        const token = localStorage.getItem("authTOken");
-
-        if (!token) {
-            setIsWishlisted(false);
-            return;
-        }
-
-        const checkWishlistStatus = async () => {
-            try {
-                const wishlistProducts = await getWishlist();
-
-                // wishlistProducts.some(...) Find whether at least one product like current productId in the wishlist array
-                const productIsSaved = wishlistProducts.some(
-                    (wishlistProduct) =>
-                        wishlistProduct &&
-                        wishlistProduct._id === productId
-                );
-
-                setIsWishlisted(productIsSaved);
-            } catch (error) {
-                console.log("WISHLIST STATUS ERROR:", error);
-            }
-        };
-
-        checkWishlistStatus();
-    }, [productId]);
+    /*
+     No longer needed (Remove the old useEffect).
+     WishlistContext already loads and stores the user's wishlist when the application starts.
+     */
 
     if (!product) {
         return (

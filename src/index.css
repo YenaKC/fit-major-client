@@ -552,6 +552,31 @@ It gives the user:
   pointer-events: none;
 }
 
+/* WISHLIST COUNT */
+.wishlist-count {
+  display: inline-block;
+  transform: scale(1);
+}
+
+.wishlist-count.pop {
+  animation: wishlist-count-pop 0.3s ease;
+}
+
+@keyframes wishlist-count-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.35);
+    color: var(--primary);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 /* PRODUCT DETAILS */
 .pdp-image {
   width: 100%;

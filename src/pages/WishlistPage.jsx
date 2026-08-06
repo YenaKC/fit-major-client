@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getWishlist, removeWishlist } from "../services/wishlist.service";
+import { getWishlist } from "../services/wishlist.service";
 
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
@@ -13,25 +13,6 @@ function WishlistPage() {
     const [loading, setLoading] = useState(true);
 
     const [removingProductId, setRemovingProductId] = useState(null);
-
-    // handleRemoveWishlist: 
-    // DELETE /users/wishlist/:productId 
-    // => Delete in MongoDB
-    // => Elimiete the same product from state
-    // => Remove the product card without refreshing
-    const handleRemoveWishlist = async (productId) => {
-        try {
-            await removeWishlist(productId);
-
-            setWishlist((currentWishlist) =>
-                currentWishlist.filter(
-                    (product) => product._id !== productId
-                )
-            );
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     const handleRemoveFromPage = (productId) => {
         setRemovingProductId(productId);
@@ -107,16 +88,6 @@ function WishlistPage() {
                                         product={product}
                                         onWishlistRemove={handleRemoveFromPage}
                                     />
-
-                                    <button
-                                        type="button"
-                                        className="btn"
-                                        onClick={() =>
-                                            handleRemoveWishlist(product._id)
-                                        }
-                                    >
-                                        REMOVE
-                                    </button>
                                 </div>
                             ))}
                     </div>

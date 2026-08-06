@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { WishlistContext } from "../context/WishlistContext";
 
 function Navbar() {
     // State: Menu Open/Close
@@ -11,6 +13,20 @@ function Navbar() {
     const [supplementsOpen, setSupplementsOpen] = useState(false);
     const [clothingOpen, setClothingOpen] = useState(false);
     const [search, setSearch] = useState("");
+    const { wishlist } = useContext(WishlistContext);
+
+    const wishlistCount = wishlist.length;
+
+    const [wishlistCountPop, setWishlistCountPop] = useState(false);
+    useEffect(() => {
+        setWishlistCountPop(true);
+
+        const timer = setTimeout(() => {
+            setWishlistCountPop(false);
+        }, 300);
+
+        return () => clearTimeout(timer);
+    }, [wishlistCount]);
 
     const navigate = useNavigate();
 
@@ -256,7 +272,16 @@ function Navbar() {
                     // If there's no token -> Not show */}
                     {token && (
                         <Link to="/wishlist" onClick={closeAllMenus}>
-                            WISHLIST
+                            WISHLIST{" "}
+                            <span
+                                className={
+                                    wishlistCountPop
+                                        ? "wishlist-count pop"
+                                        : "wishlist-count"
+                                }
+                            >
+                                ({wishlistCount})
+                            </span>
                         </Link>
                     )}
 
@@ -469,7 +494,16 @@ function Navbar() {
 
                     {token && (
                         <Link to="/wishlist" onClick={closeAllMenus}>
-                            WISHLIST
+                            WISHLIST{" "}
+                            <span
+                                className={
+                                    wishlistCountPop
+                                        ? "wishlist-count pop"
+                                        : "wishlist-count"
+                                }
+                            >
+                                ({wishlistCount})
+                            </span>
                         </Link>
                     )}
 
