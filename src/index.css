@@ -431,6 +431,7 @@ button {
   position: relative;
 }
 
+/* WISHLIST */
 .wishlist-icon {
   position: absolute;
   right: 12px;
@@ -493,6 +494,62 @@ button {
 .wishlist-icon:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 3px;
+}
+
+/* WISHLIST-EMPTY: The empty state is displayed when the wishlist array contains no products. 
+It gives the user:
+- a clear explanation,
+- a visual wishlist icon,
+- and a direct action to continue shopping.
+*/
+.wishlist-empty {
+  min-height: 360px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.wishlist-empty-icon {
+  margin-bottom: 18px;
+
+  font-size: 4rem;
+  line-height: 1;
+
+  color: var(--primary);
+}
+
+.wishlist-empty h2 {
+  margin-bottom: 10px;
+}
+
+.wishlist-empty p {
+  max-width: 420px;
+  margin-bottom: 24px;
+
+  color: var(--text-muted);
+}
+
+.wishlist-empty-btn {
+  width: auto;
+  min-width: 180px;
+  padding-inline: 28px;
+}
+
+/* WISHLIST-ITEM */
+.wishlist-item {
+  transition: 
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.wishlist-item.removing {
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
 }
 
 /* PRODUCT DETAILS */

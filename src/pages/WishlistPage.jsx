@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getWishlist, removeWishlist } from "../services/wishlist.service";
 
 import ProductCard from "../components/ProductCard";
@@ -10,6 +11,8 @@ function WishlistPage() {
 
     // The state to show 'Loading...' during waiting API.
     const [loading, setLoading] = useState(true);
+
+    const [removingProductId, setRemovingProductId] = useState(null);
 
     // handleRemoveWishlist: 
     // DELETE /users/wishlist/:productId 
@@ -28,6 +31,20 @@ function WishlistPage() {
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const handleRemoveFromPage = (productId) => {
+        setRemovingProductId(productId);
+
+        setTimeout(() => {
+            setWishlist((currentWishlist) =>
+                currentWishlist.filter(
+                    (product) => product._id !== productId
+                )
+            );
+
+            setRemovingProductId(null);
+        }, 300);
     };
 
     // Excuted once when the page opens for the first time.
@@ -60,15 +77,36 @@ function WishlistPage() {
                 <p className="auth-subtitle">YOUR SAVED PRODUCTS</p>
 
                 {wishlist.length === 0 ? (
-                    <p className="empty-text">Your wishlist is empty.</p>
+                    <section className="wishlist-empty">
+                        <div className="wishlist-empty-icon" aria-hidden="true">
+                            ♡
+                        </div>
+
+                        <h2>Your wishlist is empty.</h2>
+
+                        <p>Save your favorite products and find them here anytime.</p>
+
+                        {/* The Link component sends the user back to the product catalog without reloading the entire application. */}
+                        <Link to="/products" className="btn wishlist-empty-btn">
+                            SHOP NOW
+                        </Link>
+                    </section>
                 ) : (
                     <div className="product-grid">
                         {/* // wishlist.map(...): print each product */}
                         {wishlist
                             .filter((product) => product)
                             .map((product) => (
-                                <div key={product._id} className="wishlist-item">
-                                    <ProductCard product={product} />
+                                <div key={product._id} className={
+                                    removingProductId === product._id
+                                        ? "wishlist-item removing"
+                                        : "wishlist-item"
+                                }
+                                >
+                                    <ProductCard
+                                        product={product}
+                                        onWishlistRemove={handleRemoveFromPage}
+                                    />
 
                                     <button
                                         type="button"
