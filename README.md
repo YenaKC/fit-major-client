@@ -1,89 +1,124 @@
-# FIT MAJOR
+# FIT MAJOR — Frontend
 
-FIT MAJOR is a full-stack e-commerce platform for premium gymwear,
-built as an individual MERN Stack project.
+FIT MAJOR is a full-stack e-commerce platform for premium gymwear.
+
+This repository contains the frontend of an individual MERN Stack project built with React and Vite.
 
 ## Live Demo
 
-[View FIT MAJOR](YOUR_VERCEL_URL)
+https://fit-major-client.vercel.app
 
 ## Tech Stack
 
-### Frontend
 - React
 - Vite
 - React Router
 - Axios
 - React Context API
-
-### Backend
-- Node.js
-- Express
-- MongoDB
-- Mongoose
+- CSS
 - JWT Authentication
+- Stripe Checkout integration
 
-### Payments
-- Stripe Checkout
-- Stripe Webhooks
-
-## Features
+## Main Features
 
 - User signup and login
-- JWT authentication
 - Product catalog
 - Product search
-- Category filters
-- New arrivals and sale collections
-- Product details
+- Category filtering
+- New Arrivals and Sale collections
+- Product detail pages
 - Wishlist
-- Shared wishlist state with React Context
 - Shopping bag
-- Shared cart state with React Context
-- Live wishlist and bag counters
 - Quantity updates and item removal
-- Stripe Checkout
-- Order creation
+- Live wishlist and bag counters
 - Order history
+- Stripe Checkout flow
 - Responsive navigation
 
-## Project Structure
+## State Management
 
-The application is divided into two repositories:
+The application uses React Context to centralize shared state.
 
-- Frontend: React + Vite
-- Backend: Express + MongoDB
+### WishlistContext
 
-## Highlights
+`src/context/WishlistContext.jsx`
 
-Some parts I recommend reviewing:
+Handles:
 
-### Frontend
-- `src/context/WishlistContext.jsx`
-- `src/context/CartContext.jsx`
-- `src/pages/ProductDetailsPage.jsx`
-- `src/components/Navbar.jsx`
+- Loading the logged-in user's wishlist
+- Adding products
+- Removing products
+- Checking wishlist status
+- Synchronizing wishlist state across ProductCard, ProductDetailsPage, WishlistPage and Navbar
 
-These files show how I centralized wishlist and shopping bag state
-and synchronized it across multiple components.
+### CartContext
 
-### Backend
-- `src/routes/stripe.routes.js`
+`src/context/CartContext.jsx`
 
-This route handles Stripe Checkout sessions, payment confirmation
-through webhooks, order status updates, stock updates, and cart cleanup
-after a confirmed payment.
+Handles:
+
+- Loading the user's shopping bag
+- Adding products
+- Updating quantities
+- Removing products
+- Synchronizing bag data across ProductDetailsPage, CartPage and Navbar
+
+## Files I Recommend Reviewing
+
+### `src/context/WishlistContext.jsx`
+
+Centralized wishlist state and synchronization between multiple components.
+
+### `src/context/CartContext.jsx`
+
+Centralized shopping bag state and API interaction.
+
+### `src/pages/ProductDetailsPage.jsx`
+
+Connects product data, wishlist actions and shopping bag actions.
+
+### `src/components/Navbar.jsx`
+
+Responsive navigation with authentication-aware links, search, wishlist count and bag count.
+
+### `src/pages/ProductsPage.jsx`
+
+Product search, category filtering and collection filtering.
+
+## Backend
+
+The backend is implemented separately with Node.js, Express and MongoDB.
+
+Backend repository:
+
+[\[BACKEND_REPOSITORY_URL\]](https://github.com/YenaKC/fit-major-server)
+
+## Project Architecture
+
+```text
+React / Vite
+     ↓
+Axios API requests
+     ↓
+Express REST API
+     ↓
+MongoDB
+```
+
+
+Authentication is handled with JWT.
+
+Stripe is used for the checkout flow and payment processing.
 
 ## AI Tools
-
-I used:
+AI tools were used as part of the development workflow:
 - ChatGPT
 - GitHub Copilot
 - Gemini
 
-I used AI mainly for debugging, code review, comparing implementation
-approaches, and clarifying concepts while building the project.
+I used them mainly for debugging, code review, comparing implementation approzches and clarifying technical concepts.
+
+All implementation decisions and final code were reviewed and understood before being integrated into the project.
 
 ## Author
-
 Yena Kim
