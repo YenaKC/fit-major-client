@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 // useParams: To bring the productID from URL
 import { useParams, useNavigate } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 import api from "../services/api";
 
 import Footer from "../components/Footer";
@@ -10,9 +11,17 @@ import Footer from "../components/Footer";
 // as ProductCard, Navbar, and WishlistPage.
 import { WishlistContext } from "../context/WishlistContext";
 
+
 function ProductDetailsPage() {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
+
+    const navigate = useNavigate();
+
+    const {
+        addToCart,
+    } = useContext(CartContext);
+
     /*
     Read the shared wishlist functions from WishlistContext.
 
@@ -23,8 +32,24 @@ function ProductDetailsPage() {
         addToWishlist,
         removeFromWishlist,
     } = useContext(WishlistContext);
+    
+    const handleAddToCart = async () => {
+        const token = localStorage.getItem("authToken");
 
-    const navigate = useNavigate();
+        if (!token) {
+            navigate("/login");
+            return;
+        }
+
+        try {
+            await addToCart(product._id, 1);
+            navigate("/cart");
+        } catch (error) {
+            console.log("ADD TO CART ERROR:", error);
+        }
+    };
+
+
 
     /*
     Check whether the current product already exists inside the shared wishlist.
@@ -55,28 +80,6 @@ function ProductDetailsPage() {
         } catch (error) {
             console.log("WISHLIST TOGGLE ERROR:", error);
         }
-    };
-
-    const handleAddToCart = () => {
-        const token = localStorage.getItem("authToken");
-
-        api
-            .post(
-                "/cart/add",
-                {
-                    productId: product._id,
-                    quantity: 1,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            )
-            .then(() => {
-                navigate("/cart");
-            })
-            .catch(console.log);
     };
 
     /*
@@ -110,30 +113,30 @@ function ProductDetailsPage() {
         );
     }
 
-        return (
-            <main className="page">
-                <img src={product.image} alt={product.name} className="pdp-image" />
+    return (
+        <main className="page">
+            <img src={product.image} alt={product.name} className="pdp-image" />
 
-                <section className="pdp-info">
-                    <p className="badge">{product.category}</p>
-                    <h1>{product.name}</h1>
-                    <h2>{product.price}€</h2>
-                    <p>{product.description}</p>
+            <section className="pdp-info">
+                <p className="badge">{product.category}</p>
+                <h1>{product.name}</h1>
+                <h2>{product.price}€</h2>
+                <p>{product.description}</p>
 
-                    <button className="btn" onClick={handleAddToCart}>ADD TO BAG</button>
-                    <button
-                        type="button"
-                        className="btn wishlist-toggle-btn"
-                        onClick={handleWishlistToggle}>
-                        {isWishlisted
-                            ? "♥ IN YOUR WISHLIST"
-                            : "♡ ADD TO WISHLIST"}
-                    </button>
-                </section>
+                <button className="btn" onClick={handleAddToCart}>ADD TO BAG</button>
+                <button
+                    type="button"
+                    className="btn wishlist-toggle-btn"
+                    onClick={handleWishlistToggle}>
+                    {isWishlisted
+                        ? "♥ IN YOUR WISHLIST"
+                        : "♡ ADD TO WISHLIST"}
+                </button>
+            </section>
 
-                <Footer />
-            </main>
-        );
-    }
+            <Footer />
+        </main>
+    );
+}
 
-    export default ProductDetailsPage;
+export default ProductDetailsPage;

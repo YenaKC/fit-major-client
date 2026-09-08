@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
 import { WishlistContext } from "../context/WishlistContext";
 
@@ -14,8 +15,12 @@ function Navbar() {
     const [clothingOpen, setClothingOpen] = useState(false);
     const [search, setSearch] = useState("");
     const { wishlist } = useContext(WishlistContext);
-
     const wishlistCount = wishlist.length;
+    const { cart } = useContext(CartContext);
+
+    const cartCount = cart?.items?.reduce((total, item) => {
+        return total + item.quantity;
+    }, 0) || 0;
 
     const [wishlistCountPop, setWishlistCountPop] = useState(false);
     useEffect(() => {
@@ -286,7 +291,7 @@ function Navbar() {
                     )}
 
                     <Link to="/cart" onClick={closeAllMenus}>
-                        BAG
+                        BAG ({cartCount})
                     </Link>
 
                     {token ? (
@@ -508,7 +513,7 @@ function Navbar() {
                     )}
 
                     <Link to="/cart" onClick={closeAllMenus}>
-                        BAG
+                        BAG ({cartCount})
                     </Link>
 
                     {token ? (

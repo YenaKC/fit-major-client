@@ -1,67 +1,16 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import api from "../services/api";
 
+import { CartContext } from "../context/CartContext.jsx";
 import Footer from "../components/Footer.jsx";
 
 function CartPage() {
-    const [cart, setCart] = useState(null);
-
-    const token = localStorage.getItem("authToken");
-
-    const navigate = useNavigate();
-
-    // Get my cart from back-end server.
-    const getCart = () => {
-        api
-            .get("/cart", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                setCart(res.data);
-            })
-            .catch(console.log);
-    };
-
-    useEffect(() => {
-        getCart();
-    }, []);
-
-    // Modificate quantity
-    const updateQuantity = (productId, quantity) => {
-        if (quantity < 1) return;
-
-        api
-            .put(
-                `/cart/item/${productId}`,
-                { quantity },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            )
-            .then(() => {
-                getCart();
-            })
-            .catch(console.log);
-    };
-
-    // Remove the product in the cart(bag)
-    const deleteItem = (productId) => {
-        api
-            .delete(`/cart/item/${productId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then(() => {
-                getCart();
-            })
-            .catch(console.log);
-    };
+    const {
+        cart,
+        cartLoading,
+        updateQuantity,
+        removeFromCart,
+    } = useContext(CartContext);
 
     // Total Price
     const totalPrice = cart?.items?.reduce((total, item) => {
@@ -70,6 +19,8 @@ function CartPage() {
 
     // Change my cart to make an order
     const checkout = () => {
+        const token = localStorage.getItem("authToken");
+
         api
             .post(
                 "/stripe/create-checkout-session",
@@ -85,6 +36,16 @@ function CartPage() {
             })
             .catch(console.log);
     };
+
+    if (cartLoading) {
+        return (
+            <main className="page">
+                <div className="container">
+                    <p>Loading bag...</p>
+                </div>
+            </main>
+        );
+    }
 
     if (!cart || cart.items.length === 0) {
         return (
@@ -135,7 +96,7 @@ function CartPage() {
                                 <button
                                     type="button"
                                     className="remove-btn"
-                                    onClick={() => deleteItem(item.product._id)}
+                                    onClick={() => removeFromCart(item.product._id)}
                                 >
                                     Remove
                                 </button>
