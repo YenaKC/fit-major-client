@@ -33,7 +33,16 @@ function ProductsPage() {
             .get("/products")
             .then((res) => {
                 console.log("PRODUCTS FROM SERVER:", res.data);
-                setProducts(res.data);
+
+                const productsData = Array.isArray(res.data)
+                    ? res.data
+                    : res.data?.products;
+
+                setProducts(
+                    Array.isArray(productsData)
+                        ? productsData
+                        : []
+                );
             })
             .catch((error) => {
                 console.log("PRODUCT FETCH ERROR:", error);

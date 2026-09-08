@@ -12,7 +12,15 @@ function HomePage() {
         api
             .get("/products")
             .then((res) => {
-                setProducts(res.data);
+                const productsData = Array.isArray(res.data)
+                    ? res.data
+                    : res.data?.products;
+
+                setProducts(
+                    Array.isArray(productsData)
+                        ? productsData
+                        : []
+                );
             })
             .catch((error) => {
                 console.log("HOME PRODUCTS FETCH ERROR:", error);
