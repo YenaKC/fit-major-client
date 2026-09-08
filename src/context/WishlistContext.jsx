@@ -4,6 +4,7 @@ import {
     addWishlist,
     removeWishlist
 } from "../services/wishlist.service";
+import { data } from "react-router-dom";
 
 /* Create a shared React context for wishlist data.
 Components inside the providerwill be able to access thes same wishlist state. */
@@ -13,6 +14,15 @@ function WishlistProvider({ children }) {
     /* Store the logged-in user's wishlist in one central place instead of loading it separately inside every ProductCard. */
     const [wishlist, setWishlist] = useState([]);
     const [wishlistLoading, setWishlistLoading] = useState(true);
+    const normalizeWishlist = (data) => {
+        const wishlistData = Array.isArray(data)
+            ? data
+            : data?.wishlist;
+
+        return Array.isArray(wishlistData)
+            ? wishlistData.filter((product) => product)
+            : [];
+    };
 
     const token = localStorage.getItem("authToken");
 
@@ -20,6 +30,8 @@ function WishlistProvider({ children }) {
     Load the logged-in user's wishlist once and store it in the central Context state.
     */
     const loadWishlist = async () => {
+        const token = localStorage.getItem("authToken");
+
         if (!token) {
             setWishlist([]);
             setWishlistLoading(false);
@@ -28,7 +40,7 @@ function WishlistProvider({ children }) {
 
         try {
             const data = await getWishlist();
-            setWishlist(data.filter((product) => product));
+            setWishlist(normalizeWishlist(data));
         } catch (error) {
             console.log("WISHLIST CONTEXT LOAD ERROR:", error);
             setWishlist([]);
@@ -59,11 +71,9 @@ function WishlistProvider({ children }) {
     const addToWishlist = async (productId) => {
         const response = await addWishlist(productId);
 
-        const updatedWishlist = response.wishlist || [];
+        const updatedWishlist = normalizedWishlist(response);
 
-        setWishlist(
-            updatedWishlist.filter((product) => product)
-        );
+        setWishlist(updatedWishlist);
 
         return updatedWishlist;
     }; 
@@ -76,11 +86,9 @@ function WishlistProvider({ children }) {
     const removeFromWishlist = async (productId) => {
         const response = await removeWishlist(productId);
 
-        const updatedWishlist = response.wishlist || [];
+        const updatedWishlist = normalizeWishlist(response);
 
-        setWishlist(
-            updatedWishlist.filter((product) => product)
-        );
+        setWishlist(updatedWishlist);
 
         return updatedWishlist;
     };
