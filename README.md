@@ -1,71 +1,89 @@
 # FIT MAJOR
 
-Premium gymwear e-commerce platform built with the MERN Stack.
+FIT MAJOR is a full-stack e-commerce platform for premium gymwear,
+built as an individual MERN Stack project.
 
-## Features
+## Live Demo
 
-- Authentication (Signup / Login)
-- Product Catalog
-- Search & Category Filter
-- Shopping Cart
-- Order Creation
-- Responsive Design
-- JWT Authentication
-- MongoDB Atlas Database
-- Stripe Checkout Integration
+[View FIT MAJOR](YOUR_VERCEL_URL)
 
 ## Tech Stack
 
-Frontend
+### Frontend
 - React
+- Vite
 - React Router
 - Axios
-- CSS
+- React Context API
 
-Backend
+### Backend
 - Node.js
-- Express.js
+- Express
 - MongoDB
 - Mongoose
-- JWT
-- bcrypt
-- Stripe
+- JWT Authentication
 
-## Installation
+### Payments
+- Stripe Checkout
+- Stripe Webhooks
 
-Frontend
+## Features
 
-npm install
-npm run dev
+- User signup and login
+- JWT authentication
+- Product catalog
+- Product search
+- Category filters
+- New arrivals and sale collections
+- Product details
+- Wishlist
+- Shared wishlist state with React Context
+- Shopping bag
+- Shared cart state with React Context
+- Live wishlist and bag counters
+- Quantity updates and item removal
+- Stripe Checkout
+- Order creation
+- Order history
+- Responsive navigation
 
-Backend
+## Project Structure
 
-npm install
-npm start
+The application is divided into two repositories:
 
-## Environment Variables
+- Frontend: React + Vite
+- Backend: Express + MongoDB
 
-Frontend
+## Highlights
 
-VITE_API_URL=
+Some parts I recommend reviewing:
 
-Backend
+### Frontend
+- `src/context/WishlistContext.jsx`
+- `src/context/CartContext.jsx`
+- `src/pages/ProductDetailsPage.jsx`
+- `src/components/Navbar.jsx`
 
-MONGO_URI=
-JWT_SECRET=
-STRIPE_SECRET_KEY=
+These files show how I centralized wishlist and shopping bag state
+and synchronized it across multiple components.
 
-## Deployment
+### Backend
+- `src/routes/stripe.routes.js`
 
-Frontend:
-Vercel (https://fit-major-client-j8z8xhzdh-yena-kim-choi-s-projects.vercel.app/)
+This route handles Stripe Checkout sessions, payment confirmation
+through webhooks, order status updates, stock updates, and cart cleanup
+after a confirmed payment.
 
-Backend:
-Vercel (https://fit-major-server-1qxrksw5l-yena-kim-choi-s-projects.vercel.app/)
+## AI Tools
 
-Database:
-MongoDB Atlas
+I used:
+- ChatGPT
+- GitHub Copilot
+- Gemini
 
-## Authors
+I used AI mainly for debugging, code review, comparing implementation
+approaches, and clarifying concepts while building the project.
+
+## Author
 
 Yena Kim
