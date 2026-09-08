@@ -4,7 +4,6 @@ import {
     addWishlist,
     removeWishlist
 } from "../services/wishlist.service";
-import { data } from "react-router-dom";
 
 /* Create a shared React context for wishlist data.
 Components inside the providerwill be able to access thes same wishlist state. */
@@ -23,8 +22,6 @@ function WishlistProvider({ children }) {
             ? wishlistData.filter((product) => product)
             : [];
     };
-
-    const token = localStorage.getItem("authToken");
 
     /*
     Load the logged-in user's wishlist once and store it in the central Context state.
@@ -71,7 +68,7 @@ function WishlistProvider({ children }) {
     const addToWishlist = async (productId) => {
         const response = await addWishlist(productId);
 
-        const updatedWishlist = normalizedWishlist(response);
+        const updatedWishlist = normalizeWishlist(response);
 
         setWishlist(updatedWishlist);
 
